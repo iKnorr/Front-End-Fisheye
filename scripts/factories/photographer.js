@@ -11,9 +11,10 @@ function photographerFactory(data) {
     container.classList.add("photographer_card");
     const img = document.createElement("img");
     img.setAttribute("src", picture);
+    img.setAttribute("alt", name);
     const h2 = document.createElement("h2");
-    const cityCountry = document.createElement("h3");
-    cityCountry.textContent = `${city}, ${country}`;
+    const location = document.createElement("h3");
+    location.textContent = `${city}, ${country}`;
     const taglineText = document.createElement("p");
     taglineText.textContent = tagline;
     const priceText = document.createElement("span");
@@ -24,7 +25,7 @@ function photographerFactory(data) {
     link.appendChild(h2);
     container.appendChild(img);
     article.appendChild(link);
-    article.appendChild(cityCountry);
+    article.appendChild(location);
     article.appendChild(taglineText);
     article.appendChild(priceText);
 
