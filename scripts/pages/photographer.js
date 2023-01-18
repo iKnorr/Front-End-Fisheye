@@ -1,49 +1,67 @@
 let params = new URL(document.location).searchParams;
-let idURL = Number(params.get("id"));
+let idURL = Number(params.get('id'));
 
-const createPhotographerHeaderDOM = (photographer) => {
-  const { portrait, name, price, tagline, city, country } = photographer;
+const createPhotographerHeaderDOM = photographer => {
+  const { portrait, name, tagline, city, country } = photographer;
 
-  const picture = `assets/photographers/${portrait}`;
+  const textHTML = `<div class="info-photographer"><h1 id"info-heading">${name}</h1><h3 class="">${city}, ${country}</h3><p>${tagline}</p></div>`;
 
-  const photographerHeaderSection =
-    document.querySelector(".photograph-header");
+  const imgHTML = `<img src="assets/photographers/${portrait}" alt="${name}">`;
 
-  const containerInfo = document.createElement("div");
-  containerInfo.classList.add("info-photographer");
-  const h1 = document.createElement("h1");
-  h1.textContent = name;
-  const location = document.createElement("h3");
-  location.textContent = `${city}, ${country}`;
-  const taglineText = document.createElement("p");
-  taglineText.textContent = tagline;
-  const img = document.createElement("img");
-  img.setAttribute("src", picture);
-  img.setAttribute("alt", name);
-  photographerHeaderSection.insertBefore(
-    containerInfo,
-    photographerHeaderSection.children[0]
-  );
-  containerInfo.appendChild(h1);
-  containerInfo.appendChild(location);
-  containerInfo.appendChild(taglineText);
-  photographerHeaderSection.appendChild(img);
+  const photographerHeaderSection = document.querySelector('.photograph-header');
+  photographerHeaderSection.insertAdjacentHTML('afterbegin', textHTML);
+  photographerHeaderSection.insertAdjacentHTML('beforeend', imgHTML);
 };
 
-const createPhotographerGalleryDOM = (photographerMedia) => {
-  const { id, title, image, likes, data, price } = photographerMedia;
+const createPhotographerGalleryDOM = (photographer, photographerMedia) => {
+  const { name, price } = photographer;
   console.log(photographerMedia);
-  const images = photographerMedia.map((el) => el.image);
-  console.log(images);
+
+  let sumOfLikes = 0;
+  photographerMedia.forEach(el => {
+    sumOfLikes += el.likes;
+  });
+
+  const imagesGallery =
+    '<div class="gallery">' +
+    photographerMedia
+      .map(el => {
+        console.log(el.image);
+        if (Object.keys(el).includes('video')) {
+          return `<div class="gallery_img"><video class="video" height="300"><source src="assets/images/${name}/${el.video}" type="video/mp4"></video><i class="icon-play fa-solid fa-play"></i><div class="gallery_img_info"><h3>${el.title}</h3><div class="gallery_img_like"><h3 class="like">${el.likes}</h3><i class="heart-icon fa-solid fa-heart"></i></div></div></div>`;
+        }
+        if (Object.keys(el).includes('image')) {
+          return `<div class="gallery_img"><img src="assets/images/${name}/${el.image}" alt="${el.title}" height="300"><div class="gallery_img_info"><h3>${el.title}</h3><div class="gallery_img_like"><h3 class="like">${el.likes}</h3><i class="heart-icon fa-solid fa-heart"></i></div></div></div>`;
+        }
+      })
+      .join('') +
+    `</div>`;
+
+  const photographerInfo = `<div class="photographer_info"><div class="sum-of-likes"><p class="nr_of_likes">${sumOfLikes}</p><i class="fa-solid fa-heart"></i></div><div>${price}€ / jour</div></div>`;
+
+  const photographerHeaderSection = document.querySelector('.photograph-header');
+  photographerHeaderSection.insertAdjacentHTML('afterend', imagesGallery);
+  const gallery = document.querySelector('.gallery');
+  gallery.insertAdjacentHTML('beforeend', photographerInfo);
+  const allLikes = document.querySelector('.nr_of_likes');
+
+  const likeButton = document.querySelectorAll('.heart-icon');
+
+  likeButton.forEach(i => {
+    i.addEventListener('click', () => {
+      i.previousElementSibling.textContent = Number(i.previousElementSibling.textContent) + 1;
+      allLikes.textContent = Number(allLikes.textContent) + 1;
+    });
+  });
 };
 
 async function getMedia() {
-  const response = await fetch("../data/photographers.json");
+  const response = await fetch('../data/photographers.json');
   const { photographers, media } = await response.json();
-  const photographer = photographers.filter((i) => i.id === idURL).shift();
-  const photographerMedia = media.filter((i) => i.photographerId === idURL);
+  const photographer = photographers.filter(i => i.id === idURL).shift();
+  const photographerMedia = media.filter(i => i.photographerId === idURL);
 
   createPhotographerHeaderDOM(photographer);
-  createPhotographerGalleryDOM(photographerMedia);
+  createPhotographerGalleryDOM(photographer, photographerMedia);
 }
 getMedia();
