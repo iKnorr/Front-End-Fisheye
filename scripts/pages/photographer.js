@@ -26,7 +26,6 @@ const createPhotographerGalleryDOM = (photographer, photographerMedia) => {
     '<div class="gallery">' +
     photographerMedia
       .map(el => {
-        console.log(el.image);
         if (Object.keys(el).includes('video')) {
           return `<div class="gallery_img"><video class="video" height="300"><source src="assets/images/${name}/${el.video}" type="video/mp4"></video><i class="icon-play fa-solid fa-play"></i><div class="gallery_img_info"><h3>${el.title}</h3><div class="gallery_img_like"><h3 class="like">${el.likes}</h3><i class="heart-icon fa-solid fa-heart"></i></div></div></div>`;
         }
@@ -48,10 +47,14 @@ const createPhotographerGalleryDOM = (photographer, photographerMedia) => {
   const likeButton = document.querySelectorAll('.heart-icon');
 
   likeButton.forEach(i => {
-    i.addEventListener('click', () => {
-      i.previousElementSibling.textContent = Number(i.previousElementSibling.textContent) + 1;
-      allLikes.textContent = Number(allLikes.textContent) + 1;
-    });
+    i.addEventListener(
+      'click',
+      () => {
+        i.previousElementSibling.textContent = Number(i.previousElementSibling.textContent) + 1;
+        allLikes.textContent = Number(allLikes.textContent) + 1;
+      },
+      { once: true },
+    );
   });
 };
 
