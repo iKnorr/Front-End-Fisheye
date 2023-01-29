@@ -15,7 +15,17 @@ const createPhotographerHeaderDOM = photographer => {
 
 const createPhotographerGalleryDOM = (photographer, photographerMedia) => {
   const { name, price } = photographer;
-  console.log(photographerMedia);
+
+  const lightboxModal = document.querySelector('.lightbox_modal');
+  const closeLightboxModal = document.querySelector('.btn-closeLightbox');
+
+  const openLightbox = () => {
+    lightboxModal.style.display = 'block';
+  };
+
+  const closeLightbox = () => {
+    lightboxModal.style.display = 'none';
+  };
 
   let sumOfLikes = 0;
   photographerMedia.forEach(el => {
@@ -27,10 +37,10 @@ const createPhotographerGalleryDOM = (photographer, photographerMedia) => {
     photographerMedia
       .map(el => {
         if (Object.keys(el).includes('video')) {
-          return `<div class="gallery_img"><video class="video" height="300"><source src="assets/images/${name}/${el.video}" type="video/mp4"></video><i class="icon-play fa-solid fa-play"></i><div class="gallery_img_info"><h3>${el.title}</h3><div class="gallery_img_like"><h3 class="like">${el.likes}</h3><i class="heart-icon fa-solid fa-heart"></i></div></div></div>`;
+          return `<div class="gallery_img"><video class="image_gallery video" height="300"><source src="assets/images/${name}/${el.video}" type="video/mp4"></video><i class="icon-play fa-solid fa-play"></i><div class="gallery_img_info"><h3>${el.title}</h3><div class="gallery_img_like"><h3 class="like">${el.likes}</h3><i class="heart-icon fa-solid fa-heart"></i></div></div></div>`;
         }
         if (Object.keys(el).includes('image')) {
-          return `<div class="gallery_img"><img src="assets/images/${name}/${el.image}" alt="${el.title}" height="300"><div class="gallery_img_info"><h3>${el.title}</h3><div class="gallery_img_like"><h3 class="like">${el.likes}</h3><i class="heart-icon fa-solid fa-heart"></i></div></div></div>`;
+          return `<div class="gallery_img"><img class="image_gallery" src="assets/images/${name}/${el.image}" alt="${el.title}" height="300"><div class="gallery_img_info"><h3>${el.title}</h3><div class="gallery_img_like"><h3 class="like">${el.likes}</h3><i class="heart-icon fa-solid fa-heart"></i></div></div></div>`;
         }
       })
       .join('') +
@@ -55,6 +65,43 @@ const createPhotographerGalleryDOM = (photographer, photographerMedia) => {
       },
       { once: true },
     );
+  });
+
+  // Open and Close Lightbox
+  const images = document.querySelectorAll('.image_gallery');
+
+  // Close Lightbox Modal
+  closeLightboxModal.addEventListener('click', closeLightbox);
+
+  //Lightbox
+  const carouselList =
+    `<ul>` +
+    photographerMedia
+      .map((el, i) => {
+        if (Object.keys(el).includes('video')) {
+          return `<li class="carousel_list_item item-${i}"><video class="video" height="900" controls><source src="assets/images/${name}/${el.video}" type="video/mp4"></video></li>`;
+        }
+        if (Object.keys(el).includes('image')) {
+          return `<li class="carousel_list_item item-${i}"><img class="image_lightbox " src="assets/images/${name}/${el.image}" alt="${el.title}"><span>${el.title}</span></li>`;
+        }
+      })
+      .join('') +
+    `</ul>`;
+  const lightboxContent = document.querySelector('.lightbox-wrapper');
+  lightboxContent.insertAdjacentHTML('afterBegin', carouselList);
+
+  const imagesLightbox = document.getElementsByClassName('carousel_list_item');
+
+  console.log(imagesLightbox);
+  images.forEach((el, index) => {
+    // console.log(el);
+    el.addEventListener('click', e => {
+      openLightbox();
+      for (i = 0; i < imagesLightbox.length; i++) {
+        imagesLightbox[i].style.display = 'none';
+      }
+      imagesLightbox[index].style.display = 'block';
+    });
   });
 };
 
