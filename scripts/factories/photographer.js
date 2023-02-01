@@ -4,20 +4,21 @@ function photographerFactory(data) {
   const picture = `assets/photographers/${portrait}`;
 
   function getUserCardDOM() {
-    const article = document.createElement("article");
-    const link = document.createElement("a");
-    link.setAttribute("href", `photographer.html?id=${id}`);
-    const container = document.createElement("div");
-    container.classList.add("photographer_card");
-    const img = document.createElement("img");
-    img.setAttribute("src", picture);
-    img.setAttribute("alt", name);
-    const h2 = document.createElement("h2");
-    const location = document.createElement("h3");
+    const article = document.createElement('article');
+    const link = document.createElement('a');
+    link.setAttribute('href', `photographer.html?id=${id}`);
+    const container = document.createElement('div');
+    container.classList.add('photographer_card');
+    const img = document.createElement('img');
+    img.setAttribute('src', picture);
+    img.setAttribute('alt', name);
+    img.ariaLabel = `aria-label=${name}`;
+    const h2 = document.createElement('h2');
+    const location = document.createElement('h3');
     location.textContent = `${city}, ${country}`;
-    const taglineText = document.createElement("p");
+    const taglineText = document.createElement('p');
     taglineText.textContent = tagline;
-    const priceText = document.createElement("span");
+    const priceText = document.createElement('span');
     h2.textContent = name;
     priceText.textContent = `${price}€/jour`;
     link.appendChild(container);
