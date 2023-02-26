@@ -15,6 +15,15 @@ const createPhotographerHeaderDOM = photographer => {
 
 const createPhotographerGalleryDOM = (photographer, photographerMedia) => {
   const { name, price } = photographer;
+  const sortingValue = document.querySelector('.btn-text');
+  console.log(sortingValue.textContent);
+
+  const test = photographerMedia.sort((a, b) => {
+    let sortA = a.title;
+    let sortB = b.title;
+    return sortA < sortB ? -1 : sortA > sortB ? 1 : 0;
+  });
+  // console.log(test);
 
   let sumOfLikes = 0;
   photographerMedia.forEach(el => {

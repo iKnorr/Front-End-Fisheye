@@ -280,3 +280,78 @@ form input {
   border: none;
   border-radius: 5px;
 }
+
+/* Dropdown */
+.dropdown {
+  display: flex;
+  align-items: start;
+  margin-left: 2rem;
+  user-select: none;
+}
+.wrapper-dropdown {
+  position: relative;
+  cursor: pointer;
+  width: 170px;
+}
+
+.label-dropdown {
+  margin-right: 2rem;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.btn-dropdown {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* height: 69px; */
+  width: 100%;
+  padding: 20px 15px;
+  font-size: 18px;
+  background-color: #901c1c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.radius {
+  border-radius: 5px 5px 0 0;
+}
+
+.btn-dropdown i {
+  color: white;
+  margin-left: 10px;
+}
+
+.btn-dropdown p {
+  margin: 0 10px;
+}
+
+.dropdown-content {
+  position: absolute;
+  display: none;
+  margin: 0;
+  width: 100%;
+  border-radius: 0 0 5px 5px;
+  background-color: #901c1c;
+}
+
+.show {
+  display: block;
+}
+
+.dropdown-content span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 10px;
+  padding: 20px 15px;
+  border-top: solid 2px white;
+  font-size: 18px;
+  color: white;
+}
+
+.dropdown-content span:hover {
+  background-color: #8a0909;
+}
