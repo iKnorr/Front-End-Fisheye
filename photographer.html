@@ -15,7 +15,11 @@
       </a>
     </header>
     <main id="main" aria-hidden="false">
-      <div class="dropdown">
+
+      <div class="photograph-header">
+        <button class="contact_button" onclick="displayModal()" aria-label="Contact Me">Contactez-moi</button>
+      </div>
+      <div id="dropdown">
         <span class="label-dropdown">Trier par</span>
         <div class="wrapper-dropdown">
           <div class="wrapper-button">
@@ -25,14 +29,11 @@
             </button>
           </div>
           <div class="dropdown-content">
-            <span class="dropdown-option">Date</span>
-            <span class="dropdown-option">Titre</span>
+            <p class="dropdown-option">Date</p>
+            <p class="dropdown-option">Titre</p>
           </div>
         </div>
         <p class="test-p"></p>
-      </div>
-      <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()" aria-label="Contact Me">Contactez-moi</button>
       </div>
       <div class="lightbox_modal" arria-hidden="true" role="dialog" aria-describedby="lightbox">
         <i class="close btn-closeLightbox fa-solid fa-xmark"></i>
@@ -60,6 +61,5 @@
     <script src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
     <script src="/scripts/utils/lightbox.js"></script>
-    <script src="/scripts/utils/dropdown.js"></script>
   </body>
 </html>
