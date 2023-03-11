@@ -7,7 +7,10 @@ const createPhotographerHeaderDOM = photographer => {
   const textHTML = `<div class="info-photographer"><h1 id"info-heading">${name}</h1><h3 class="">${city}, ${country}</h3><p>${tagline}</p></div>`;
 
   const imgHTML = `<img src="assets/photographers/${portrait}" alt="${name}">`;
+  const headingNameHTML = `<h2>${name}</h2>`;
 
+  const heading = document.getElementById('header-heading');
+  heading.insertAdjacentHTML('beforeend', headingNameHTML);
   const photographerHeaderSection = document.querySelector('.photograph-header');
   photographerHeaderSection.insertAdjacentHTML('afterbegin', textHTML);
   photographerHeaderSection.insertAdjacentHTML('beforeend', imgHTML);
@@ -99,7 +102,16 @@ const createPhotographerGalleryDOM = (photographer, photographerMedia) => {
       dropdownContent.classList.toggle('show');
       currentSortingValue = btnText.textContent;
       renderGallery();
+      createLightbox(photographer, photographerMedia);
     });
+  });
+
+  // close dropdown with escape key
+  window.addEventListener('keyup', function (e) {
+    if (e.key === 'Escape') {
+      dropdownBtn.classList.remove('radius');
+      dropdownContent.classList.remove('show');
+    }
   });
 
   renderGallery();

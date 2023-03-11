@@ -7,15 +7,15 @@ const createLightbox = (photographer, photographerMedia) => {
   const closeLightboxModal = document.querySelector('.btn-closeLightbox');
 
   const openLightbox = () => {
-    mainSection.ariaHidden = 'true';
-    lightboxModal.ariaHidden = 'false';
+    // mainSection.ariaHidden = 'true';
+    // lightboxModal.ariaHidden = 'false';
     body.classList.add('no-scroll');
     lightboxModal.style.display = 'block';
   };
 
   const closeLightbox = () => {
-    mainSection.ariaHidden = 'false';
-    lightboxModal.ariaHidden = 'true';
+    // mainSection.ariaHidden = 'false';
+    // lightboxModal.ariaHidden = 'true';
     body.classList.remove('no-scroll');
     lightboxModal.style.display = 'none';
   };
@@ -83,4 +83,11 @@ const createLightbox = (photographer, photographerMedia) => {
     }
     imagesLightbox[slideIndex - 1].style.display = 'block';
   };
+
+  // close Lightbox with escape key
+  window.addEventListener('keyup', function (e) {
+    if (e.key === 'Escape') {
+      closeLightbox();
+    }
+  });
 };
