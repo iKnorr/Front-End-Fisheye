@@ -3,6 +3,7 @@ async function getPhotographers() {
   const { photographers, media } = await response.json();
   return {
     photographers,
+    media,
   };
 }
 

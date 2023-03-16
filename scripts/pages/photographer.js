@@ -19,21 +19,13 @@ const createPhotographerHeaderDOM = photographer => {
 const createPhotographerGalleryDOM = (photographer, photographerMedia) => {
   const { name, price } = photographer;
 
-  let currentSortingValue = 'Popularité';
-  const renderGallery = () => {
-    let sortedMedia = photographerMedia.slice();
+  const btnText = document.querySelector('.btn-text');
 
-    if (currentSortingValue === 'Popularité') {
-      sortedMedia.sort((a, b) => b.likes - a.likes);
-    } else if (currentSortingValue === 'Titre') {
-      sortedMedia.sort((a, b) => {
-        let sortA = a.title;
-        let sortB = b.title;
-        return sortA < sortB ? -1 : sortA > sortB ? 1 : 0;
-      });
-    } else if (currentSortingValue === 'Date') {
-      sortedMedia.sort((a, b) => new Date(a.date) - new Date(b.date));
-    }
+  let currentSortingValue = btnText.textContent;
+  let sortedMedia = photographerMedia.slice();
+
+  const renderGallery = currentSortingValue => {
+    sortedMedia = sortPhotographerMedia(photographerMedia, currentSortingValue);
 
     let sumOfLikes = 0;
     sortedMedia.forEach(el => {
@@ -47,18 +39,20 @@ const createPhotographerGalleryDOM = (photographer, photographerMedia) => {
 
     const gallery = document.createElement('div');
     gallery.setAttribute('id', 'gallery');
+    gallery.setAttribute('role', 'list');
+    gallery.setAttribute('aria-label', 'Gallery of images and videos');
     const imagesGalleryHtml = sortedMedia
       .map((el, index) => {
         if (Object.keys(el).includes('video')) {
-          return `<div class="gallery_img"><video class="image_gallery video" height="300"><source src="assets/images/${name}/${el.video}" type="video/mp4"></video><i class="icon-play fa-solid fa-play"></i><div class="gallery_img_info"><h3>${el.title}</h3><div class="gallery_img_like"><h3 class="like">${el.likes}</h3><i class="heart-icon fa-solid fa-heart"></i></div></div></div>`;
+          return `<div class="gallery_img" role="listitem"><video class="image_gallery video" height="300"><source src="assets/images/${name}/${el.video}" type="video/mp4"></video><i class="icon-play fa-solid fa-play"></i><div class="gallery_img_info"><h3>${el.title}</h3><div class="gallery_img_like"><h3 class="like">${el.likes}</h3><i class="heart-icon fa-solid fa-heart aria-label="like" role="button"></i></div></div></div>`;
         }
         if (Object.keys(el).includes('image')) {
-          return `<div class="gallery_img"><img class="image_gallery" src="assets/images/${name}/${el.image}" alt="${el.title}" height="300"><div class="gallery_img_info"><h3>${el.title}</h3><div class="gallery_img_like"><h3 class="like">${el.likes}</h3><i class="heart-icon fa-solid fa-heart"></i></div></div></div>`;
+          return `<div class="gallery_img" role="listitem"><img class="image_gallery" src="assets/images/${name}/${el.image}" alt="${el.title}" height="300"><div class="gallery_img_info"><h3>${el.title}</h3><div class="gallery_img_like"><h3 class="like">${el.likes}</h3><i class="heart-icon fa-solid fa-heart aria-label="like" role="button"></i></div></div></div>`;
         }
       })
       .join('');
 
-    const photographerInfo = `<div class="photographer_info"><div class="sum-of-likes"><p class="nr_of_likes">${sumOfLikes}</p><i class="fa-solid fa-heart"></i></div><div>${price}€ / jour</div></div>`;
+    const photographerInfo = `<div class="photographer_info" role="complementary"><div class="sum-of-likes"><p class="nr_of_likes">${sumOfLikes}</p><i class="fa-solid fa-heart"></i></div><div>${price}€ / jour</div></div>`;
 
     const dropdown = document.getElementById('dropdown');
     dropdown.after(gallery);
@@ -86,23 +80,39 @@ const createPhotographerGalleryDOM = (photographer, photographerMedia) => {
   const dropdownBtn = document.querySelector('.btn-dropdown');
   const dropdownContent = document.querySelector('.dropdown-content');
   const dropdownOptions = document.querySelectorAll('.dropdown-option');
-  const btnText = document.querySelector('.btn-text');
+  const chevron = document.querySelector('.fa-chevron-down');
+
+  dropdownBtn.setAttribute('aria-haspopup', 'true');
+  dropdownBtn.setAttribute('aria-expanded', 'false');
+  dropdownBtn.setAttribute('aria-controls', 'dropdown-content');
 
   dropdownWrapper.addEventListener('click', () => {
     dropdownBtn.classList.toggle('radius');
     dropdownContent.classList.toggle('show');
+    chevron.classList.toggle('turn-icon');
+
+    const expanded = dropdownBtn.getAttribute('aria-expanded') === 'true' || false;
+    dropdownBtn.setAttribute('aria-expanded', String(!expanded));
+    dropdownContent.setAttribute('aria-hidden', String(!expanded));
   });
 
   dropdownOptions.forEach(e => {
     e.addEventListener('click', e => {
       let from = btnText.textContent;
+
       btnText.textContent = e.target.textContent;
       e.target.textContent = from;
+
       dropdownBtn.classList.toggle('radius');
       dropdownContent.classList.toggle('show');
+      chevron.classList.toggle('turn-icon');
+      dropdownBtn.setAttribute('aria-expanded', 'false');
+      dropdownContent.setAttribute('aria-hidden', 'true');
+
       currentSortingValue = btnText.textContent;
-      renderGallery();
-      createLightbox(photographer, photographerMedia);
+
+      renderGallery(currentSortingValue);
+      createLightbox(photographer, sortedMedia);
     });
   });
 
@@ -111,8 +121,10 @@ const createPhotographerGalleryDOM = (photographer, photographerMedia) => {
     if (e.key === 'Escape') {
       dropdownBtn.classList.remove('radius');
       dropdownContent.classList.remove('show');
+      dropdownBtn.setAttribute('aria-expanded', 'false');
+      dropdownContent.setAttribute('aria-hidden', 'true');
     }
   });
 
-  renderGallery();
+  renderGallery(currentSortingValue);
 };

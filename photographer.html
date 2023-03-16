@@ -11,57 +11,56 @@
   <body>
     <header>
       <a href="/">
-        <img src="assets/images/logo.png" class="logo" />
+        <img src="assets/images/logo.png" class="logo" alt="retour au home" />
       </a>
     </header>
     <main id="main" aria-hidden="false">
-
       <div class="photograph-header">
         <button class="contact_button" onclick="displayModal()" aria-label="Contact Me">Contactez-moi</button>
       </div>
       <div id="dropdown">
         <span class="label-dropdown">Trier par</span>
-        <div class="wrapper-dropdown">
+        <div class="wrapper-dropdown" >
           <div class="wrapper-button">
             <button class="btn-dropdown">
-              <p class="btn-text">Popularité</p>
+              <span class="btn-text">Popularité</span>
               <i class="fa-solid fa-chevron-down"></i>
             </button>
           </div>
-          <div class="dropdown-content">
-            <p class="dropdown-option">Date</p>
-            <p class="dropdown-option">Titre</p>
-          </div>
+          <ul class="dropdown-content" >
+            <li class="dropdown-option">Date</li>
+            <li class="dropdown-option">Titre</li>
+          </ul>
         </div>
-        <p class="test-p"></p>
       </div>
-      <div class="lightbox_modal" arria-hidden="true" role="dialog" aria-describedby="lightbox">
-        <i class="close btn-closeLightbox fa-solid fa-xmark"></i>
+      <div class="lightbox_modal">
+        <i class="close btn-closeLightbox fa-solid fa-xmark" aria-label="Fermer Lightbox"></i>
         <div class="lightbox-wrapper">
-          <i class="prev fa-solid fa-chevron-left"></i>
-          <i class="next fa-solid fa-chevron-right"></i>
+          <i class="prev fa-solid fa-chevron-left" aria-label="Previous Image"></i>
+          <div class="lightbox-content"></div>
+          <i class="next fa-solid fa-chevron-right" aria-label="Next Image"></i>
         </div>
       </div>
-      <div id="contact_modal">
-        <div class="modal">
+      <div id="contact_modal" aria-hidden="true" role="dialog">
+        <div class="modal" role="document">
           <header>
             <div id="header-heading">
               <h2 >Contactez-moi</h2>
             </div>
-            <i class="close-modal fa-solid fa-xmark"></i>
+            <i class="close-modal fa-solid fa-xmark" aria-label="close contact form"></i>
           </header>
-          <form id="contact-form">
+          <form id="contact-form" aria-labelledby="header-heading">
             <div>
               <label for="firstName">Prénom</label>
-              <input type="text" id="firstName" />
+              <input type="text" id="firstName" required/>
               <label for="lastName">Nom</label>
-              <input type="text" id="lastName"/>
+              <input type="text" id="lastName" required/>
               <label for="email">E-Mail</label>
-              <input type="email" id="email"/>
+              <input type="email" id="email" required/>
               <label for="message">Message</label>
-              <textarea name="message" id="message"></textarea>
+              <textarea name="message" id="message" required></textarea>
             </div>
-            <button class="contact_button submit_btn" type="submit" >Envoyer</button>
+            <button class="contact_button submit_btn" type="submit" aria-label="Envoyer le formulaire de contact">Envoyer</button>
           </form>
         </div>
       </div>
