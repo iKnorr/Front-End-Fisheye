@@ -8,7 +8,7 @@ body {
 
 #contact_modal {
   display: none;
-
+  z-index: 20;
 }
 
 .photograph-header {
@@ -166,6 +166,7 @@ body {
   height: 100vh;
   overflow: auto;
   background-color: white;
+  z-index: 15;
 }
 
 .lightbox-wrapper {
@@ -241,7 +242,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 35px
+  padding: 35px;
+  z-index: 12;
 }
 
 .modal header {
@@ -377,7 +379,7 @@ form textarea {
   width: 100%;
   border-radius: 0 0 5px 5px;
   background-color: #901c1c;
-  z-index: 100;
+  z-index: 10;
 }
 
 .show {
