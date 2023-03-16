@@ -18,6 +18,7 @@ contactBtn.addEventListener('click', () => {
 
 contactForm.addEventListener('submit', e => {
   e.preventDefault();
+  contactModal.setAttribute('aria-hidden', 'true');
   console.log('First Name: ', firstName.value);
   console.log('Last Name: ', lastName.value);
   console.log('E-Mail: ', email.value);
@@ -34,6 +35,7 @@ closeBtn.addEventListener('click', () => {
 
 window.addEventListener('keyup', function (e) {
   if (e.key === 'Escape') {
+    contactModal.setAttribute('aria-hidden', 'true');
     modal.classList.remove('show-contact-modal');
     body.classList.remove('no-scroll');
   }
