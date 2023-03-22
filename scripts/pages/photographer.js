@@ -81,6 +81,8 @@ const createPhotographerGalleryDOM = (photographer, photographerMedia) => {
   const dropdownContent = document.querySelector('.dropdown-content');
   const dropdownOptions = document.querySelectorAll('.dropdown-option');
   const chevron = document.querySelector('.fa-chevron-down');
+  const firstLiEl = document.getElementById('date');
+  const secondLiEl = document.getElementById('titel');
 
   dropdownBtn.setAttribute('aria-haspopup', 'true');
   dropdownBtn.setAttribute('aria-expanded', 'false');
@@ -96,24 +98,39 @@ const createPhotographerGalleryDOM = (photographer, photographerMedia) => {
     dropdownContent.setAttribute('aria-hidden', String(!expanded));
   });
 
+  const sortMedia = e => {
+    let from = btnText.textContent;
+
+    btnText.textContent = e.target.textContent;
+    e.target.textContent = from;
+
+    dropdownBtn.classList.toggle('radius');
+    dropdownContent.classList.toggle('show');
+    chevron.classList.toggle('turn-icon');
+    dropdownBtn.setAttribute('aria-expanded', 'false');
+    dropdownContent.setAttribute('aria-hidden', 'true');
+    currentSortingValue = btnText.textContent;
+
+    renderGallery(currentSortingValue);
+    createLightbox(photographer, sortedMedia);
+  };
+
   dropdownOptions.forEach(e => {
     e.addEventListener('click', e => {
-      let from = btnText.textContent;
-
-      btnText.textContent = e.target.textContent;
-      e.target.textContent = from;
-
-      dropdownBtn.classList.toggle('radius');
-      dropdownContent.classList.toggle('show');
-      chevron.classList.toggle('turn-icon');
-      dropdownBtn.setAttribute('aria-expanded', 'false');
-      dropdownContent.setAttribute('aria-hidden', 'true');
-
-      currentSortingValue = btnText.textContent;
-
-      renderGallery(currentSortingValue);
-      createLightbox(photographer, sortedMedia);
+      sortMedia(e);
     });
+  });
+
+  firstLiEl.addEventListener('keyup', e => {
+    if (e.key === 'Enter') {
+      sortMedia(e);
+    }
+  });
+
+  secondLiEl.addEventListener('keyup', e => {
+    if (e.key === 'Enter') {
+      sortMedia(e);
+    }
   });
 
   // close dropdown with escape key
