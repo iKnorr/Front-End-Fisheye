@@ -13,6 +13,15 @@ const sortPhotographerMedia = (sortedMedia, currentSortingValue) => {
   return sortedMedia;
 };
 
+async function getPhotographers() {
+  const response = await fetch('../data/photographers.json');
+  const { photographers, media } = await response.json();
+  return {
+    photographers,
+    media,
+  };
+}
+
 async function getMedia() {
   const response = await fetch('../data/photographers.json');
   const { photographers, media } = await response.json();
@@ -29,4 +38,5 @@ async function getMedia() {
   createPhotographerGalleryDOM(photographer, sortedMedia);
   createLightbox(photographer, sortedMedia);
 }
+getPhotographers();
 getMedia();

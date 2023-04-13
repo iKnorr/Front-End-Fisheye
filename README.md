@@ -1,6 +1,4 @@
-# Base de code du projet P6 - Parcours Front-end
+# Code base of project P6 - Front-end course
+## Starting the project
 
-## Démarrer le projet
-
-Rien à installer ici, il suffit d'ouvrir le fichier `index.html`.
-
+There's nothing to install here, just open the index.html file.
