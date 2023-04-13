@@ -30,13 +30,15 @@ const createLightbox = (photographer, photographerMedia) => {
   closeLightboxModal.addEventListener('click', closeLightbox);
 
   //Lightbox
-  const carouselList = photographerMedia.map((el, i) => {
-    if (Object.keys(el).includes('video')) {
-      return `<div class="carousel_list_item item-${i}"><video class="video" height="900" controls><source src="assets/images/${name}/${el.video}" type="video/mp4"></video><span>${el.title}</span></div>`;
-    } else if (Object.keys(el).includes('image')) {
-      return `<div class="carousel_list_item item-${i}"><img class="image_lightbox " src="assets/images/${name}/${el.image}" alt="${el.title}"><span>${el.title}</span></div>`;
-    }
-  });
+  const carouselList = photographerMedia
+    .map((el, i) => {
+      if (Object.keys(el).includes('video')) {
+        return `<div class="carousel_list_item item-${i}"><video class="video" height="900" controls><source src="assets/images/${name}/${el.video}" type="video/mp4"></video><span>${el.title}</span></div>`;
+      } else if (Object.keys(el).includes('image')) {
+        return `<div class="carousel_list_item item-${i}"><img class="image_lightbox " src="assets/images/${name}/${el.image}" alt="${el.title}"><span>${el.title}</span></div>`;
+      }
+    })
+    .join('');
 
   // Lightbox Variables
   const lightboxContent = document.querySelector('.lightbox-content');
@@ -44,7 +46,6 @@ const createLightbox = (photographer, photographerMedia) => {
   const next = document.querySelector('.next');
   const prev = document.querySelector('.prev');
   lightboxContent.innerHTML = carouselList;
-  // previous.insertAdjacentHTML('afterEnd', carouselList);
 
   const imagesLightbox = document.querySelectorAll('.carousel_list_item');
 
