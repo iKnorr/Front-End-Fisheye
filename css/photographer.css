@@ -290,7 +290,6 @@ form {
 form label {
   color: #312e2e;
   font-size: 2vw;
-  /* font-size: 36px; */
 }
 
 form input {
@@ -405,14 +404,4 @@ form textarea {
 
 .dropdown-content span:hover {
   background-color: #8a0909;
-}
-
-
-@media (max-width: 1400px) {
-  .modal header h2 {
-    /* font-size: 40px; */
-  }
-  form label {
-    /* font-size: 26px; */
-  }
 }

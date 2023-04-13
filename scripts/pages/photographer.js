@@ -1,6 +1,7 @@
 let params = new URL(document.location).searchParams;
 let idURL = Number(params.get('id'));
 
+// creating header of photographer page
 const createPhotographerHeaderDOM = photographer => {
   const { portrait, name, tagline, city, country } = photographer;
 
@@ -16,6 +17,7 @@ const createPhotographerHeaderDOM = photographer => {
   photographerHeaderSection.insertAdjacentHTML('beforeend', imgHTML);
 };
 
+// Creating photographer gallery
 const createPhotographerGalleryDOM = (photographer, photographerMedia) => {
   const { name, price } = photographer;
 
@@ -64,6 +66,7 @@ const createPhotographerGalleryDOM = (photographer, photographerMedia) => {
     const allLikes = document.querySelector('.nr_of_likes');
     const likeButton = document.querySelectorAll('.heart-icon');
 
+    // Like functionality for gallery images
     likeButton.forEach(i => {
       i.addEventListener('click', () => {
         if (i.classList.contains('fa-regular')) {
@@ -81,7 +84,7 @@ const createPhotographerGalleryDOM = (photographer, photographerMedia) => {
     });
   };
 
-  // Dropdown and sotr media
+  // Dropdown and sort media
   const dropdownWrapper = document.querySelector('.wrapper-button');
   const dropdownBtn = document.querySelector('.btn-dropdown');
   const dropdownContent = document.querySelector('.dropdown-content');
@@ -94,6 +97,7 @@ const createPhotographerGalleryDOM = (photographer, photographerMedia) => {
   dropdownBtn.setAttribute('aria-expanded', 'false');
   dropdownBtn.setAttribute('aria-controls', 'dropdown-content');
 
+  // Dropdown for filter gallery
   dropdownWrapper.addEventListener('click', () => {
     dropdownBtn.classList.toggle('radius');
     dropdownContent.classList.toggle('show');
@@ -104,6 +108,7 @@ const createPhotographerGalleryDOM = (photographer, photographerMedia) => {
     dropdownContent.setAttribute('aria-hidden', String(!expanded));
   });
 
+  // Filtering logic
   const sortMedia = e => {
     let from = btnText.textContent;
 
