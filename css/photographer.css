@@ -90,6 +90,9 @@ body {
   border-radius: 0.5rem;
   cursor: pointer;
 }
+.heart-icon{
+  cursor: pointer;
+}
 
 .gallery_img video {
   object-fit: cover;
