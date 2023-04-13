@@ -264,7 +264,7 @@ body {
 }
 
 .modal header h2 {
-  font-size: 64px;
+  font-size: 3vw;
   font-weight: normal;
   text-align: left;
 }
@@ -289,7 +289,8 @@ form {
 
 form label {
   color: #312e2e;
-  font-size: 36px;
+  font-size: 2vw;
+  /* font-size: 36px; */
 }
 
 form input {
@@ -409,9 +410,9 @@ form textarea {
 
 @media (max-width: 1400px) {
   .modal header h2 {
-    font-size: 40px;
+    /* font-size: 40px; */
   }
   form label {
-    font-size: 26px;
+    /* font-size: 26px; */
   }
 }
