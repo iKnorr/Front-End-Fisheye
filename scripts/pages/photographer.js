@@ -48,9 +48,9 @@ const createPhotographerGalleryDOM = (photographer, photographerMedia) => {
         return (
           `<div class="gallery_img" role="listitem">` +
           (Object.keys(el).includes('video')
-            ? `<video class="image_gallery video" height="300"><source src="assets/images/${name}/${el.video}" type="video/mp4"></video><i class="icon-play fa-solid fa-play"></i>`
-            : `<img class="image_gallery" src="assets/images/${name}/${el.image}" alt="${el.title}" height="300">`) +
-          `<div class="gallery_img_info"><h3>${el.title}</h3><div class="gallery_img_like"><h3 class="like">${el.likes}</h3><i class="heart-icon fa-regular fa-heart" aria-label="like" role="button"></i></div></div></div>`
+            ? `<video class="image_gallery video" height="300" tabindex="0"><source src="assets/images/${name}/${el.video}" type="video/mp4"></video><i class="icon-play fa-solid fa-play"></i>`
+            : `<img class="image_gallery" src="assets/images/${name}/${el.image}" alt="${el.title}" height="300" tabindex="0">`) +
+          `<div class="gallery_img_info"><h3>${el.title}</h3><div class="gallery_img_like"><h3 class="like">${el.likes}</h3><i class="heart-icon fa-regular fa-heart" aria-label="like" tabindex="0" role="button"></i></div></div></div>`
         );
       })
       .join('');
@@ -66,19 +66,30 @@ const createPhotographerGalleryDOM = (photographer, photographerMedia) => {
     const allLikes = document.querySelector('.nr_of_likes');
     const likeButton = document.querySelectorAll('.heart-icon');
 
+    const addRemoveLikes = i => {
+      if (i.classList.contains('fa-regular')) {
+        i.classList.remove('fa-regular');
+        i.classList.add('fa-solid');
+        i.previousElementSibling.textContent = Number(i.previousElementSibling.textContent) + 1;
+        allLikes.textContent = Number(allLikes.textContent) + 1;
+      } else if (i.classList.contains('fa-solid')) {
+        i.classList.remove('fa-solid');
+        i.classList.add('fa-regular');
+        i.previousElementSibling.textContent = Number(i.previousElementSibling.textContent) - 1;
+        allLikes.textContent = Number(allLikes.textContent) - 1;
+      }
+    };
     // Like functionality for gallery images
     likeButton.forEach(i => {
       i.addEventListener('click', () => {
-        if (i.classList.contains('fa-regular')) {
-          i.classList.remove('fa-regular');
-          i.classList.add('fa-solid');
-          i.previousElementSibling.textContent = Number(i.previousElementSibling.textContent) + 1;
-          allLikes.textContent = Number(allLikes.textContent) + 1;
-        } else if (i.classList.contains('fa-solid')) {
-          i.classList.remove('fa-solid');
-          i.classList.add('fa-regular');
-          i.previousElementSibling.textContent = Number(i.previousElementSibling.textContent) - 1;
-          allLikes.textContent = Number(allLikes.textContent) - 1;
+        addRemoveLikes(i);
+      });
+    });
+
+    likeButton.forEach(i => {
+      i.addEventListener('keyup', e => {
+        if (e.key === 'Enter') {
+          addRemoveLikes(i);
         }
       });
     });

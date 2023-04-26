@@ -1,6 +1,5 @@
 const createLightbox = (photographer, photographerMedia) => {
   const { name } = photographer;
-
   const body = document.querySelector('body');
   const lightboxModal = document.querySelector('.lightbox_modal');
   const closeLightboxModal = document.querySelector('.btn-closeLightbox');
@@ -26,8 +25,22 @@ const createLightbox = (photographer, photographerMedia) => {
     });
   });
 
+  images.forEach((el, index) => {
+    el.addEventListener('keyup', e => {
+      if (e.key === 'Enter') {
+        openLightbox();
+        currentSlide(index + 1);
+      }
+    });
+  });
+
   // Close Lightbox Modal
   closeLightboxModal.addEventListener('click', closeLightbox);
+  closeLightboxModal.addEventListener('keyup', e => {
+    if (e.key === 'Enter') {
+      closeLightbox();
+    }
+  });
 
   //Lightbox
   const carouselList = photographerMedia
@@ -62,8 +75,18 @@ const createLightbox = (photographer, photographerMedia) => {
   next.addEventListener('click', () => {
     plusSlides(1);
   });
+  next.addEventListener('keyup', e => {
+    if (e.key === 'Enter') {
+      plusSlides(1);
+    }
+  });
   prev.addEventListener('click', () => {
     plusSlides(-1);
+  });
+  prev.addEventListener('keyup', e => {
+    if (e.key === 'Enter') {
+      plusSlides(-1);
+    }
   });
 
   const showSlides = index => {
