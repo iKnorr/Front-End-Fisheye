@@ -264,7 +264,7 @@ body {
 }
 
 .modal header h2 {
-  font-size: 2.3vw;
+  font-size: 5vh;
   font-weight: normal;
   text-align: left;
 }
@@ -289,7 +289,7 @@ form {
 
 form label {
   color: #312e2e;
-  font-size: 1.6vw;
+  font-size: 3vh;
 }
 
 form input {
@@ -297,7 +297,7 @@ form input {
   height: 68px;
   border: none;
   border-radius: 5px;
-  font-size: 2rem;
+  font-size: 3vh;
 }
 
 form label:last-of-type {
